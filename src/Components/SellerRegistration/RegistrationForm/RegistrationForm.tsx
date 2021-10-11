@@ -52,21 +52,24 @@ const RegistrationForm = ({ signInHandler }: any) => {
 						<option>Business</option>
 						<option>Individual</option>
 					</FormSelect>
+					<div className='text-danger'>{errors.accountType }</div>
 				</div>
 				<div className="my-3">
 					<Label>Product category</Label>
 					<FormSelect 
-						name="productCategory" 
+						name="category" 
 						className="px-3"
 						onChange={handleChange}
 						>
 						<option selected disabled hidden>
 							select one
 						</option>
-						<option className="my-5">Business</option>
+						<option  className="my-5">Business</option>
 						<option>Individual</option>
 					</FormSelect>
+					<div className='text-danger'>{errors.category}</div>
 				</div>
+
 				<div className="my-3">
 					<Label>Phone Number</Label>
 					<div
