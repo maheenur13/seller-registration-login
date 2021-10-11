@@ -1,0 +1,50 @@
+@media only screen and (max-width: 425px) {
+    .title {
+        font-size: 1.4rem !important;
+    }
+    .md-title {
+        font-size: 1.1rem !important;
+    }
+    .description {
+        text-align: justify;
+    }
+    .button-box Button {
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .title {
+        font-size: 1.7rem;
+    }
+    .md-title {
+        font-size: 1.3rem;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .title {
+        font-size: 1.8rem !important;
+    }
+    .md-title {
+        font-size: 1.4rem !important;
+    }
+}
+
+.store-container{
+    @media only screen and (max-width: 767px) {
+		Button:nth-child(1) {
+			margin-bottom: 10px;
+		}
+		Button:nth-child(2) {
+			margin-right: 15px;
+		}
+	}
+	@media only screen and (max-width: 575px) {
+		.button-box {
+			margin-top: 13px;
+		}
+		Button:nth-child(1) {
+			margin-top: 10px;
+		}
+	}
+}
