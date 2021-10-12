@@ -1,14 +1,8 @@
 import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import CreateStore from './Components/CreateStore/CreateStore';
-import Frequent from './Components/Frequent/Frequent';
-import Help from './Components/Help/Help';
-import Selling from './Components/Selling/Selling';
-import SellOnZDrop from './Components/SellOnZDrop/SellOnZDrop';
-import Tools from './Components/Tools/Tools';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import SellOnZDrop from './Components/pages/SellOnZDropRead/SellOnZDropRead';
 import SellerRegistration from './Components/SellerRegistration/SellerRegistrationInfo';
-// import Demo from './Components/SellerRegistration/Demo';
 
 function App() {
 	return (
@@ -17,20 +11,13 @@ function App() {
 				<Switch>
 					<Route exact path="/">
 						<Container>
-							<SellOnZDrop />
-							<Selling />
-							<Tools />
-							<CreateStore />
-							<Frequent />
-							<Help />
+							<SellOnZDrop/>
 						</Container>
 					</Route>
 					<Route exact path="/reg">
 						<SellerRegistration />
 					</Route>
-					{/* <Route exact path="/demo">
-						<Demo/>
-					</Route> */}
+					
 				</Switch>
 			</Router>
 		</AppContainer>

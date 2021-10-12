@@ -21,10 +21,13 @@ const PhoneNumberOTP:FC<PropsType> = ({ forgotPasswordHandler,phoneNumber}) => {
             forgotPasswordHandler();
         }
         else {
+            const newErrors = {...errors };
+            newErrors.phoneNumber=`${message}`;
+            setErrors(newErrors);
             console.log(message)
         }
 	}
-	const { values, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
+	const { values, setErrors, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
     return (
        <form onSubmit={handleSubmit} noValidate>
            <div>

@@ -37,10 +37,10 @@ const VerifyCode: FC<PropsType> = ({ forgotPasswordHandler, phoneNumber }) => {
 		}
 	};
 	const { values, setValues, setErrors, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
-    console.log(values.phoneNumber)
+
 	const codeVerification = async (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		const { success, data, message } = await authAPI.sendOtp(values.phoneNumber);
+		const { success, data, message } = await authAPI.resendOTP(values.phoneNumber);
 		if (success) {
 			console.log(data);
 			setIsSendCodeDisabled(true);

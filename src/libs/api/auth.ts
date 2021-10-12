@@ -27,6 +27,8 @@ class AuthAPI extends BaseAPI {
 
 	resetPassword = (mobileNumber:string, password:string, confirmPassword:string) => this.post<BR<string>>(`auth/reset-password`,{mobileNumber,password,confirmPassword});
 
+	resendOTP = (phoneNumber:string) => this.post<BR<string>>(`auth/seller_resend_otp?phoneNumber=${phoneNumber}`,{phoneNumber});
+
 }
 
 export const authAPI = new AuthAPI('http://182.160.120.69:1000');

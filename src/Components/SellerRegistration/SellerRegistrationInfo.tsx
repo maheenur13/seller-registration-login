@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { FormContainer } from '../atoms/FormContainer/FormContainer';
+import RegistrationPageHeader from '../atoms/RegistrationPageHeader/RegistrationPageHeader';
 import { RegistrationContainer } from '../atoms/RegistrationSection/RegistrationSection';
 import NeedHelpAndPolicies from '../molecules/NeedHelpAndPolicies/NeedHelpAndPolicies';
 import RegForm from './SellerForm/SellerForm';
@@ -14,31 +15,7 @@ const SellerRegistration: FC = () => {
 						<div className="mb-4 text-md-left text-center">
 							<img style={{ width: '8rem' }} src="/images/logo.svg" alt="logo" />
 						</div>
-						<div className="text-md-left text-center">
-							<p
-								style={{
-									fontSize: '1.7rem',
-									fontWeight: 'lighter',
-								}}
-							>
-								A fresh <br /> approach to
-								<br />
-								<span
-									className="big-text"
-									style={{
-										padding: '0',
-										fontWeight: '300' as 'bold',
-										fontSize: '4.3rem',
-										display: 'inline-block',
-										marginTop: '-19px',
-									}}
-								>
-									shopping
-								</span>
-								<br />
-								online powered by <br /> creativity and <br /> innovation.
-							</p>
-						</div>
+						<RegistrationPageHeader/> 
 						<NeedHelpAndPolicies />
 					</div>
 				</Col>

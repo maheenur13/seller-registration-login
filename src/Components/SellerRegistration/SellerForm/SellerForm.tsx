@@ -15,7 +15,6 @@ export const RegForm: FC = () => {
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
-
 			{(() => {
 				switch (currentPage) {
 					case 'SIGN_UP':
