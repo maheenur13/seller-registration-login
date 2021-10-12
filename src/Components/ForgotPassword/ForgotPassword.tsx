@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import ChangePassword from './ChangePassword/ChangePassword';
-import PhoneNumber from './PhoneNumber/PhoneNumber';
-import Verification from './Verification/Verification';
+import PhoneNumberOTP from './PhoneNumber/PhoneNumber';
+import VerifyCode from './Verification/VerifyCode';
 
 const ForgotPassword = ({ handleSignIn }: any) => {
 	
 	type forgotPasswordPages = 'PHONE_NUMBER' | 'VERIFICATION' | 'CHANGE_PASSWORD';
 	const [currentPage, setCurrentPage] = useState<forgotPasswordPages>('PHONE_NUMBER');
+	const [mobileNumber, setMobileNumber] = useState<string>('');
+	
 	return (
 		<>
 			<p onClick={handleSignIn} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
@@ -20,23 +22,24 @@ const ForgotPassword = ({ handleSignIn }: any) => {
 				switch (currentPage) {
 					case 'PHONE_NUMBER':
 						return (
-							<PhoneNumber
+							<PhoneNumberOTP
 							forgotPasswordHandler = {() => setCurrentPage('VERIFICATION')}
+							phoneNumber = {[setMobileNumber]}
 							/>
 						);
-
 					case 'VERIFICATION':
 						return (
-							<Verification
+							<VerifyCode
 							forgotPasswordHandler = {() => setCurrentPage('CHANGE_PASSWORD')}
+							phoneNumber = {mobileNumber}
 							/>
-
 						);
 
 					case 'CHANGE_PASSWORD':
 						return (
 							<ChangePassword 
 							forgotPasswordHandler = {handleSignIn}
+							phoneNumber = {mobileNumber}
 							/>
 						);
 				}

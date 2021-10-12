@@ -21,7 +21,7 @@ export const passValidation = (name: string, value:string): string | undefined =
 	if(!isValid) return 'Password needs minimum eight characters, at least one letter and one number';
 }
 
-export const isPhoneNumber = (name: string,value:string): string | undefined => {
+export const isPhoneNumber = (name: string,value:string): string | undefined  => {
     const regex = /^((01){1}[3-9]{1}\d{8})$/;
 	// console.log(value)
     const isPhoneValid = regex.test(value);

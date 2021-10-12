@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { IUseFormValues, useForm } from '../../../hooks/useForm/userForm';
 import { isNotEmpty, passValidation } from '../../../hooks/useForm/utils/validate.helpers';
+import { authAPI } from '../../../libs/api';
 import { Button } from '../../atoms';
 import { Input } from '../../atoms/Input';
 import { Label } from '../../atoms/Label';
 
-const ChangePassword = ({forgotPasswordHandler}:any) => {
-    const onSuccess = (data: IUseFormValues<typeof initialState>) => {
-		console.log(data);
-        forgotPasswordHandler();
+interface PropsType {
+    forgotPasswordHandler : () => void,
+    phoneNumber: string
+}
+
+const ChangePassword: FC<PropsType> = ({forgotPasswordHandler,phoneNumber}) => {
+    const onSuccess = async (formData: IUseFormValues<typeof initialState>) => {
+        const {success, data, message } = await authAPI.resetPassword(phoneNumber,formData.password,formData.confirmPassword);
+        if(success){
+            forgotPasswordHandler();
+        }
+        else {
+            const newErrors = {...errors };
+            newErrors.confirmPassword=`${message}`;
+            setErrors(newErrors);
+        }
 	}
 	const { values, errors, setErrors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
     

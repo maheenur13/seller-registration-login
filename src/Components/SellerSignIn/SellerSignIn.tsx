@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react';
 import { IUseFormValues, useForm } from '../../hooks/useForm/userForm';
 import { isNotEmpty, isPhoneNumber } from '../../hooks/useForm/utils/validate.helpers';
@@ -17,22 +18,24 @@ const SellerSignIn: FC<Props> = ({ handleSignIn, forgetPassword }) => {
 		const phoneNumber = d?.phoneNumber;
 		const {success, data, message } = await authAPI.signIn(phoneNumber, d?.password);
 		if(success)
-		{ console.log(data)
+		{ 
+			console.log(data);
 		}
 		else {
-			const newErrors = {...errors}
-			newErrors.phoneNumber= `${message}`
+			console.log(message);
+			const newErrors = {...errors};
+			newErrors.password= `${message}`;
 			setErrors(newErrors);
 		}
 	}
 	const { values, errors,setErrors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
 	return (
 		<div>
-			<p onClick={handleSignIn} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
+			<p className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 				New User?
-				<span style={{ fontSize: '.8rem' }} className="text-primary">
-					Create An Account
-				</span>
+				<a onClick={handleSignIn} style={{ fontSize: '.8rem' }} className="text-primary">
+					{' '}Create An Account
+				</a>
 			</p>
 			<form onSubmit={handleSubmit} noValidate>
 				<div className="my-3">
@@ -85,7 +88,7 @@ const SellerSignIn: FC<Props> = ({ handleSignIn, forgetPassword }) => {
 };
 export default SellerSignIn;
 
-const initialState={
+const initialState = {
 	phoneNumber:{
 		value: '',
 		message: null,

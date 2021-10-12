@@ -17,8 +17,15 @@ class AuthAPI extends BaseAPI {
 		verificationCode,
 		password,
 		confirmPassword,
-	})
-	
+	});
+
+	sendOtp = (phoneNumber:string) => this.post<BR<string>>(`auth/seller_send_otp?phoneNumber=${phoneNumber}`,{phoneNumber});
+
+	forgotPasswordOTP = (mobileNumber:string) => this.post<BR<string>>(`auth/reset`,{mobileNumber});
+
+	resetOTPCheck = (mobileNumber:string, otp:number) => this.post<BR<string>>(`auth/reset-otp-check`,{mobileNumber,otp});
+
+	resetPassword = (mobileNumber:string, password:string, confirmPassword:string) => this.post<BR<string>>(`auth/reset-password`,{mobileNumber,password,confirmPassword});
 
 }
 

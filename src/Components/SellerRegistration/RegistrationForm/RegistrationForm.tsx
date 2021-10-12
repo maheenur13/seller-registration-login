@@ -1,37 +1,58 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { FC, MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { setTimeValidation } from '../../../helpers/formValidation';
 import { IUseFormValues, useForm } from '../../../hooks/useForm/userForm';
 import { isMinLength, isNotEmpty, isPhoneNumber, passValidation } from '../../../hooks/useForm/utils/validate.helpers';
+import { authAPI } from '../../../libs/api';
 import { Button } from '../../atoms';
 import { Input } from '../../atoms/Input';
 import { Label } from '../../atoms/Label';
 
-const RegistrationForm = ({ signInHandler }: any) => {
+const RegistrationForm:FC<PropsType> = ({signInHandler})  => {
 	const [timer, setTimer] = useState<number>(60);
 	const [isSendCodeDisabled, setIsSendCodeDisabled] = useState(false);
 
-	const onSuccess =  (formData: IUseFormValues<typeof initialState>) => {
-		console.log(formData);
-		// const {success, data, message } = await authAPI.registration()
+	const onSuccess = async (formData: IUseFormValues<typeof initialState>) => {
+		console.log(formData)
+		const {success, data, message } = await authAPI.registration(formData.storeName,formData.accountType,formData.category,formData.phoneNumber,parseInt(formData.verificationCode),formData.password,formData.confirmPassword);
+
+		if(success){
+			console.log(data);
+		}
+		else {
+			console.log(message)
+		}
 	}
 
-	const { values, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
+	const { values,setErrors, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
 	
-	const codeVerification = () => {
-		setIsSendCodeDisabled(true);	
+	const codeVerification = async(event:MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		const {success, data , message} = await authAPI.sendOtp(values.phoneNumber);
+		if(success){
+			console.log(data);
+			setIsSendCodeDisabled(true);	
 		setTimeValidation({
 			iSendCodeDisabled: [isSendCodeDisabled, setIsSendCodeDisabled],
 			timer: [timer, setTimer],
 		});
+		}
+		else {
+			console.log(message)
+			const newErrors = {...errors};
+			newErrors.phoneNumber= `${message}`
+			setErrors(newErrors);
+		}
+		
 	};
 	return (
 		<>
-			<p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
+			<p className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 				Already Have an account?
-				<span style={{ fontSize: '.8rem' }} className="text-primary">
-					Sign In
-				</span>
+				<a onClick={signInHandler} style={{ fontSize: '.8rem' }} className="text-primary">
+					{' '}Sign In
+				</a>
 			</p>
 			<form onSubmit={handleSubmit} noValidate>
 				<div className="my-3">
@@ -64,12 +85,11 @@ const RegistrationForm = ({ signInHandler }: any) => {
 						<option selected disabled hidden>
 							select one
 						</option>
-						<option  className="my-5">Business</option>
+						<option className="my-5">Business</option>
 						<option>Individual</option>
 					</FormSelect>
 					<div className='text-danger'>{errors.category}</div>
 				</div>
-
 				<div className="my-3">
 					<Label>Phone Number</Label>
 					<div
@@ -93,7 +113,8 @@ const RegistrationForm = ({ signInHandler }: any) => {
 								style={{
 									width: '30%',
 								}}
-								disabled={isSendCodeDisabled}
+								type='button'
+								disabled={isSendCodeDisabled }
 							>
 								Send Code
 							</Button>
@@ -101,9 +122,8 @@ const RegistrationForm = ({ signInHandler }: any) => {
 						</>
 					</div>
 					<div className="text-danger">{errors.phoneNumber}</div>
-					
 				</div>
-				<div style={{ borderRadius: '10px',border:'1px solid #cbcbcb' }} className="mt-3 mb-4 d-flex align-items-center">
+				<div style={{ borderRadius: '10px',border:'1px solid #cbcbcb' }} className="mt-3 d-flex align-items-center">
 					<Input
 						style={{ border: 'none', width: '80%' }}
 						placeholder="SMS Verification Code"
@@ -112,6 +132,7 @@ const RegistrationForm = ({ signInHandler }: any) => {
 						onChange={handleChange}
 					/>
 				</div>
+				<div className='text-danger'>{errors.verificationCode}</div>
 				<div className="my-3">
 					<Label>Password</Label>
 					<Input 
@@ -128,7 +149,7 @@ const RegistrationForm = ({ signInHandler }: any) => {
 						name="confirmPassword"
 						onChange={handleChange}
 					/>
-					
+					<div className="text-danger" >{errors.confirmPassword}</div>
 				</div>
 				<div className="my-3 d-flex justify-content-between align-items-start">
 					<img className="mr-1" src="/images/info.svg" alt="info-icon" />
@@ -152,6 +173,11 @@ const RegistrationForm = ({ signInHandler }: any) => {
 	);
 };
 export default RegistrationForm;
+
+interface PropsType {
+	 signInHandler: () => void
+}
+
 const initialState = {
 	storeName: {
 		value: '',

@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { IUseFormValues, useForm } from '../../../hooks/useForm/userForm';
-import { isPhoneNumber } from '../../../hooks/useForm/utils/validate.helpers';
+import { isNotEmpty, isPhoneNumber } from '../../../hooks/useForm/utils/validate.helpers';
+import { authAPI } from '../../../libs/api';
 import { Button } from '../../atoms';
 import { Input } from '../../atoms/Input';
 import { Label } from '../../atoms/Label';
 
-const PhoneNumber = ({ forgotPasswordHandler}:any) => {
-    const onSuccess = (data: IUseFormValues<typeof initialState>) => {
-		console.log(data)
-        forgotPasswordHandler();
-        
+interface PropsType {
+    forgotPasswordHandler: ()=> void,
+    phoneNumber: React.Dispatch<React.SetStateAction<string>>[],
+}
+
+const PhoneNumberOTP:FC<PropsType> = ({ forgotPasswordHandler,phoneNumber}) => {
+    const [ setMobileNumber] = phoneNumber;
+    const onSuccess = async (formData: IUseFormValues<typeof initialState>) => {
+        const {success, data, message } = await authAPI.forgotPasswordOTP(formData.phoneNumber);
+		if(success){
+            setMobileNumber(formData.phoneNumber);
+            console.log(data)
+            forgotPasswordHandler();
+        }
+        else {
+            console.log(message)
+        }
 	}
 	const { values, errors, handleChange, handleSubmit } = useForm(initialState, onSuccess);
     return (
@@ -41,8 +54,8 @@ const initialState ={
     phoneNumber:{
         value: '',
 		message: null,
-		validate: [isPhoneNumber],
+		validate: [isNotEmpty,isPhoneNumber],
     }
 }
 
-export default PhoneNumber;
+export default PhoneNumberOTP;
