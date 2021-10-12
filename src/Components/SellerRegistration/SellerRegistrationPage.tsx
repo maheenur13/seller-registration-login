@@ -6,7 +6,7 @@ import { RegistrationContainer } from '../atoms/RegistrationSection/Registration
 import NeedHelpAndPolicies from '../molecules/NeedHelpAndPolicies/NeedHelpAndPolicies';
 import RegForm from './SellerForm/SellerForm';
 
-const SellerRegistration: FC = () => {
+const SellerRegistrationPage: FC = () => {
 	return (
 		<RegistrationContainer>
 			<Row className="align-items-center m-auto justify-content-center w-100">
@@ -15,18 +15,23 @@ const SellerRegistration: FC = () => {
 						<div className="mb-4 text-md-left text-center">
 							<img style={{ width: '8rem' }} src="/images/logo.svg" alt="logo" />
 						</div>
-						<RegistrationPageHeader/> 
-						<NeedHelpAndPolicies />
+						<RegistrationPageHeader />
+						<div className="policyAndHelpLg">
+							<NeedHelpAndPolicies />
+						</div>
 					</div>
 				</Col>
 				<Col md={5}>
 					<FormContainer className="py-2 py-md-0">
 						<RegForm />
 					</FormContainer>
+					<div className='policyAndHelpSm d-none'>
+						<NeedHelpAndPolicies />
+					</div>
 				</Col>
 			</Row>
 		</RegistrationContainer>
 	);
 };
 
-export default SellerRegistration;
+export default SellerRegistrationPage;

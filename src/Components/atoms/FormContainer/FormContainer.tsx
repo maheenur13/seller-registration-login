@@ -11,6 +11,7 @@ background-size: 100% 92%;
 background-position: 55px 100%;
 min-height: 100vh;
 
+
 @media only screen and (max-width: 1440px) {
     background-size: 100% 92%;
     background-position: 100% 95%;

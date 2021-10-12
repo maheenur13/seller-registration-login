@@ -24,8 +24,13 @@ export const RegistrationContainer = styled.section`
 		}
 	}
 	@media only screen and (max-width: 767px) {
-		.policyAndHelp{
+		.policyAndHelpLg{
 			display: none!important;
+		}
+		.policyAndHelpSm {
+			justify-content: space-between!important;
+			margin: 0!important;
+			display: block!important;
 		}
 	}
 

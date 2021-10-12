@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import SellOnZDrop from './Components/pages/SellOnZDropRead/SellOnZDropRead';
-import SellerRegistration from './Components/SellerRegistration/SellerRegistrationInfo';
+import SellerRegistration from './Components/SellerRegistration/SellerRegistrationPage';
 
 function App() {
 	return (
