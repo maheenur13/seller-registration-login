@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { FormContainer } from '../atoms/FormContainer/FormContainer';
-import NeedHelp from '../atoms/NeedHelp/NeedHelp';
-import Policies from '../atoms/Policies/Policies';
 import { RegistrationContainer } from '../atoms/RegistrationSection/RegistrationSection';
+import NeedHelpAndPolicies from '../molecules/NeedHelpAndPolicies/NeedHelpAndPolicies';
 import RegForm from './SellerForm/SellerForm';
 
 const SellerRegistration: FC = () => {
@@ -40,14 +39,7 @@ const SellerRegistration: FC = () => {
 								online powered by <br /> creativity and <br /> innovation.
 							</p>
 						</div>
-						<div className="mt-5 mb-5 d-flex flex-wrap policyAndHelp justify-content-md-start justify-content-center align-items-center">
-							<div className="mr-md-5">
-								<Policies />
-							</div>
-							<div>
-								<NeedHelp />
-							</div>
-						</div>
+						<NeedHelpAndPolicies />
 					</div>
 				</Col>
 				<Col md={5}>
